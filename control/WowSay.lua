@@ -4,10 +4,8 @@
 local storyboard = require("storyboard")
 local scene = storyboard.newScene()
 
+local mainConfiguration =  require ("MainConfiguration")
 
-
--- Variables locales
-local pathToConfigFile="res/dat/GameConfig.dat"
 
 -----------------------------------------------------------------------------------------
 -- BEGINNING OF YOUR IMPLEMENTATION
@@ -17,7 +15,6 @@ local pathToConfigFile="res/dat/GameConfig.dat"
 -- 
 -----------------------------------------------------------------------------------------
 function scene:createScene( event )
-
 
 end
 

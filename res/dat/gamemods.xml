@@ -1,0 +1,8 @@
+<gamemods>
+	<gamemod isenable="true" name="Clasic" actionSceneName="clasicmod">
+		<spriteSheet usageAnimatedSprite="false" location="res/img/botton/red.png">
+			<spriteDimention width="256" height="256" />
+		</spriteSheet>
+		<defaultLocation xlocation="0" ylocation="0" />
+	</gamemod>
+</gamemods>

@@ -10,14 +10,14 @@ local gameButtons = {}
 
 local endAnimateSimpleButton = function( obj )
 	print("llego hasta aka")
-	transition.to( obj, { time=150, width=obj.previousW,height= obj.previousH} )
+	transition.to( obj, { time=100, width=obj.previousW,height= obj.previousH , onComplete=doActionButton } )
 end
 
 function animateSimpleButton(event)
 	if event.phase=="began" then
 		event.target.previousW=event.target.width
 		event.target.previousH=event.target.height
-		transition.to( event.target, { time=150, width=event.target.width*1.3,height=event.target.height*1.3, onComplete=endAnimateSimpleButton } )
+		transition.to( event.target, { time=100, width=event.target.width*1.3,height=event.target.height*1.3, onComplete=endAnimateSimpleButton } )
 	end
 
 end
@@ -44,11 +44,11 @@ function scene:createScene( event )
 	logo:setReferencePoint( display.TopLeftReferencePoint )
 	logo.x, logo.y = 100 , 50
 
-	local imgConfig="res/img/botton/config.png"
-	configButton=display.newImageRect(imgConfig,200,200)
+	local imgConfig="res/img/button/config.png"
+	configButton=display.newImageRect(imgConfig,184,184)
 	configButton:setReferencePoint( display.TopLeftReferencePoint )
 	configButton.x, configButton.y =   590, 800
-	configButton:addEventListener('touch',actionButton)
+	configButton:addEventListener('touch',animateSimpleButton)
 
 	local activities = xml:loadFile( "res/dat/gamemods.xml" )
 
@@ -64,14 +64,13 @@ function scene:createScene( event )
 			if activities.child[i].child[1].properties['usageAnimatedSprite']=="true" then
 
 			else
-				print("cree el boton")
-				local boton=display.newImageRect(urllocation,w,h)
+				local button=display.newImageRect(urllocation,w,h)
 
 				-- le ponemos una simple animacion de que se agrandesca
-				--boton:setReferencePoint( display.TopLeftReferencePoint )
-				boton.x, boton.y = 384 , 512
-				boton:addEventListener('touch',animateSimpleButton)
-				table.insert(gameButtons,boton)
+				--button:setReferencePoint( display.TopLeftReferencePoint )
+				button.x, button.y = 384 , 512
+				button:addEventListener('touch',animateSimpleButton)
+				table.insert(gameButtons,button)
 
 			end
 		end

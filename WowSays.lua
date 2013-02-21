@@ -8,8 +8,15 @@ local scene = storyboard.newScene()
 local configButton
 local gameButtons = {}
 
+local doActionButton = function(obj)
+
+	if obj.name=="config" then
+		storyboard.gotoScene( "MainConfiguration", "slideRight", 200 )
+	end
+
+end
+
 local endAnimateSimpleButton = function( obj )
-	print("llego hasta aka")
 	transition.to( obj, { time=100, width=obj.previousW,height= obj.previousH , onComplete=doActionButton } )
 end
 
@@ -40,15 +47,16 @@ function scene:createScene( event )
 	background.x, background.y = 0 , 0
 	
 	local imgLogo = "res/img/logo.png"
-	local logo = display.newImageRect(imgLogo,600,225)
+	local logo = display.newImageRect(imgLogo,600,200)
 	logo:setReferencePoint( display.TopLeftReferencePoint )
-	logo.x, logo.y = 100 , 50
+	logo.x, logo.y = 80 , 50
 
 	local imgConfig="res/img/button/config.png"
-	configButton=display.newImageRect(imgConfig,184,184)
+	configButton=display.newImageRect(imgConfig,160,160)
 	configButton:setReferencePoint( display.TopLeftReferencePoint )
-	configButton.x, configButton.y =   590, 800
+	configButton.x, configButton.y =   580, 840
 	configButton:addEventListener('touch',animateSimpleButton)
+	configButton.name="config"
 
 	local activities = xml:loadFile( "res/dat/gamemods.xml" )
 

@@ -1,0 +1,38 @@
+{
+    "activities": [
+        {
+            "name": "Hacker",
+            "enabled": true,
+            "action": "activities.HackerActivity",
+            "spriteSheetInfo": {
+                "isAnimatedSprite": false,
+                "location": "res/img/button/red.png",
+                "spriteDimention": {
+                    "width": 400,
+                    "height": 400
+                }
+            },
+            "defaultLocation": {
+                "x": 384,
+                "y": 380
+            }
+        },
+        {
+            "name": "Clasic",
+            "enabled": true,
+            "action": "activities.ClasicActivity",
+            "spriteSheetInfo": {
+                "isAnimatedSprite": false,
+                "location": "res/img/button/gray.png",
+                "spriteDimention": {
+                    "width": 400,
+                    "height": 400
+                }
+            },
+            "defaultLocation": {
+                "x": 384,
+                "y": 680
+            }
+        }
+    ]
+}

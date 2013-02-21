@@ -2,7 +2,7 @@
 
 
 local storyboard = require("storyboard")
-local xml = require( "modules.xml" ).newParser()
+local jsonHelper = require( "modules.JSONHelper" )
 local scene = storyboard.newScene()
 
 local configButton
@@ -12,6 +12,8 @@ local doActionButton = function(obj)
 
 	if obj.name=="config" then
 		storyboard.gotoScene( "MainConfiguration", "slideRight", 200 )
+	else
+		storyboard.gotoScene( obj.action, "slideLeft", 200 )
 	end
 
 end
@@ -26,17 +28,6 @@ function animateSimpleButton(event)
 		event.target.previousH=event.target.height
 		transition.to( event.target, { time=100, width=event.target.width*1.3,height=event.target.height*1.3, onComplete=endAnimateSimpleButton } )
 	end
-
-end
-
-
-function actionButton(event)
-	local button = event.target
-
-	if button==configButton then
-
-	end
-
 end
 
 function scene:createScene( event )
@@ -58,26 +49,27 @@ function scene:createScene( event )
 	configButton:addEventListener('touch',animateSimpleButton)
 	configButton.name="config"
 
-	local activities = xml:loadFile( "res/dat/gamemods.xml" )
+	local activities = jsonHelper:decodeFile(  "res/dat/gamemods.json" )
 
-	for i=1,#activities.child do
-		if activities.child[i].properties['isenable']=="true" then
-			local name = activities.child[i].properties['name']
-			local action = activities.child[i].properties['actionSceneName']
-			local urllocation=activities.child[i].child[1].properties['location']
-			local w=activities.child[i].child[1].child[1].properties['width']
-			local h=activities.child[i].child[1].child[1].properties['height']
+	for i=1,#activities.activities do
+		if activities.activities[i].enabled then
+			local name = activities.activities[i].name
+			local action = activities.activities[i].action
+			local urllocation=activities.activities[i].spriteSheetInfo.location
+			local w=activities.activities[i].spriteSheetInfo.spriteDimention.width
+			local h=activities.activities[i].spriteSheetInfo.spriteDimention.height
 
-			print(activities.child[i].child[1].properties['usageAnimatedSprite'])
-			if activities.child[i].child[1].properties['usageAnimatedSprite']=="true" then
+			print(name.." "..action.." "..urllocation.." "..w..h)
+			if activities.activities[i].spriteSheetInfo.isAnimatedSprite then
 
 			else
 				local button=display.newImageRect(urllocation,w,h)
-
-				-- le ponemos una simple animacion de que se agrandesca
-				--button:setReferencePoint( display.TopLeftReferencePoint )
-				button.x, button.y = 384 , 512
+				local x=activities.activities[i].defaultLocation.x
+				local y=activities.activities[i].defaultLocation.y
+				button.x, button.y = x , y
 				button:addEventListener('touch',animateSimpleButton)
+				button.name=name
+				button.action=action
 				table.insert(gameButtons,button)
 
 			end

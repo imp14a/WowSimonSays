@@ -38,7 +38,7 @@ function scene:createScene( event )
 	background.x, background.y = 0 , 0
 	
 	local imgLogo = "res/img/logo.png"
-	local logo = display.newImageRect(imgLogo,600,200)
+	local logo = display.newImageRect( imgLogo , 600 , 200 )
 	logo:setReferencePoint( display.TopLeftReferencePoint )
 	logo.x, logo.y = 80 , 50
 

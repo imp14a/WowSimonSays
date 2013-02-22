@@ -2,12 +2,17 @@
 
 
 local storyboard = require("storyboard")
+local numberComponent = require ("modules.NumberComponent")
+local timerComponent = require ("modules.TimerComponent")
+local simonSaysComponent = require ("modules.simonSaysComponent")
 local scene = storyboard.newScene()
 
-local backButton
 
-local scorePanel = require ("modules.ScoreComponent")
-local simonSaysPanel = require ("modules.SimonSaysComponent")
+local backButton
+local timerPanel
+local scorePanel
+local simonSaysPanel
+
 local score = 0
 
 local doActionButton = function(obj)
@@ -15,7 +20,7 @@ local doActionButton = function(obj)
 		storyboard.gotoScene( "WowSays", "slideRight", 500 )
 	elseif obj.name=="play" then
 		score = score + 5
-		scorePanel:setScoreValue(score)
+		--scorePanel:setScoreValue(score)
 	end
 
 end
@@ -57,15 +62,35 @@ function scene:createScene( event )
 	backButton:addEventListener('touch',animateSimpleButton)
 	backButton.name="back"
 
-	scorePanel.create()
-	scorePanel.x,scorePanel.y =30, 930
-	simonSaysPanel.create(460,460, actionButton)
+	local urlTextScore = "res/img/score.png"
+	local scoreTxt = display.newImageRect(urlTextScore,200,70)
+	scoreTxt:setReferencePoint( display.TopLeftReferencePoint )
+	scoreTxt.x, scoreTxt.y = 30 , 930
+
+	scorePanel = numberComponent.create(3)
+	numberComponent.setValue(scorePanel,153)
+	scorePanel.x,scorePanel.y =230, 930
+	print(scorePanel)
+	--scorePanel:setValue(50)
+	
+	local urlTextTime = "res/img/time.png"
+	local timeTxt = display.newImageRect(urlTextTime,170,70)
+	timeTxt:setReferencePoint( display.TopLeftReferencePoint )
+	timeTxt.x, timeTxt.y = 400 , 930
+
+	timerPanel = timerComponent.create(5)
+	timerPanel.x, timerPanel.y = 590 , 930
+
+	simonSaysPanel = simonSaysComponent.create(460,460, actionButton)
 	simonSaysPanel.x,simonSaysPanel.y =154 , 282
 
 	group:insert(background)
 	group:insert(logo)
 	group:insert(backButton)
+	group:insert(scoreTxt)
 	group:insert(scorePanel)
+	group:insert(timeTxt)
+	group:insert(timerPanel)
 	group:insert(simonSaysPanel)
 
 end

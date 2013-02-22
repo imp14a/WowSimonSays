@@ -28,8 +28,6 @@ end
 
 function NumberComponent.setValue(numberComponent,value)
 
-	--TODO tiene algo que ver con el numDigits
-
 	if value >= math.pow(10,numDigits) or value < 0 then return end   
 
 	local i=numDigits - 1

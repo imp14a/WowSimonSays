@@ -7,9 +7,11 @@ local scene = storyboard.newScene()
 
 local configButton
 local gameButtons = {}
+local busyButton
 
 local doActionButton = function(obj)
 
+	busyButton = false
 	if obj.name=="config" then
 		storyboard.gotoScene( "MainConfiguration", "slideRight", 200 )
 	else
@@ -18,15 +20,10 @@ local doActionButton = function(obj)
 
 end
 
-local endAnimateSimpleButton = function( obj )
-	transition.to( obj, { time=100, width=obj.previousW,height= obj.previousH , onComplete=doActionButton } )
-end
-
 function animateSimpleButton(event)
-	if event.phase=="began" then
-		event.target.previousW=event.target.width
-		event.target.previousH=event.target.height
-		transition.to( event.target, { time=100, width=event.target.width*1.3,height=event.target.height*1.3, onComplete=endAnimateSimpleButton } )
+	if event.phase=="began" and not busyButton then
+		busyButton = true
+		transition.from( event.target, { time=100, width=event.target.width*1.3,height=event.target.height*1.3, onComplete=doActionButton } )
 	end
 end
 

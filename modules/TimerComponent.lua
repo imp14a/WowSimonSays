@@ -6,12 +6,16 @@ local TimerComponent = {}
 local urlSeparator = "res/img/timer_separator.png"
 
 local min 
-local sec 
+local sec
+local mod
+local timeOverFunction
 
-function TimerComponent.create(m,s,timeOverFunction)
+function TimerComponent.create(m,s,mode,_timeOverFunction)
 
 	min = m
 	sec = s
+	mod =  mode
+	timeOverFunction = _timeOverFunction
 
 	TimerComponent = display.newGroup()
 
@@ -39,11 +43,30 @@ end
 
 function advanceSecond()
 	if not min then min = 0 end
-	if not sec then sec = 1 end
+	if not sec then sec = 0 end
+	
+	if mod=="dec" then
+		sec = sec - 1
+		if sec < 0 then 
+			min = min - 1
+			sec = 59
+		end
+		if sec==0 and min ==0 then
+			numberComponent.setValue(TimerComponent[3],sec)
+			numberComponent.setValue(TimerComponent[1],min)
+			timer.performWithDelay(1000,timeOverFunction)
+			return
+		end
+	else
+		sec = sec + 1
+		if sec == 60 then 
+			min = min + 1
+			sec = 0
+		end
+	end
 
 	numberComponent.setValue(TimerComponent[3],sec)
-	sec = sec + 1
-	min = min + 1
+	numberComponent.setValue(TimerComponent[1],min)
 	timer.performWithDelay(1000,advanceSecond)
 end
 

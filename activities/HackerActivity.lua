@@ -9,6 +9,7 @@ local scene = storyboard.newScene()
 
 
 local backButton
+local busyButton
 local timerPanel
 local scorePanel
 local simonSaysPanel
@@ -16,32 +17,30 @@ local simonSaysPanel
 local score = 0
 
 local doActionButton = function(obj)
+	busyButton = false
 	if obj.name=="back" then
 		storyboard.gotoScene( "WowSays", "slideRight", 500 )
-	elseif obj.name=="play" then
-		score = score + 5
-		--scorePanel:setScoreValue(score)
 	end
 
-end
-
-local endAnimateSimpleButton = function( obj )
-	transition.to( obj, { time=100, width = obj.previousW,height = obj.previousH , onComplete=doActionButton } )
 end
 
 function animateSimpleButton(event)
-	if event.phase=="began" then
-		event.target.previousW=event.target.width
-		event.target.previousH=event.target.height
-		transition.to( event.target, { time=100, width=event.target.width*1.3,height=event.target.height*1.3, onComplete=endAnimateSimpleButton } )
+	if event.phase=="began" and not busyButton then
+		busyButton = true
+		transition.from( event.target, { time=100, width=event.target.width*1.3,height=event.target.height*1.3, onComplete=doActionButton } )
 	end
 end
 
-function actionButton(event)
-	if event.phase=="began" then
+function actionButton(obj)
 		print("tocoBotonColor")
-	end
+end
 
+function playEvent(obj)
+	print("presiono play")
+end
+
+function timeOver()
+	print("termino el tiempo!!!!")
 end
 
 function scene:createScene( event )
@@ -70,18 +69,16 @@ function scene:createScene( event )
 	scorePanel = numberComponent.create(3)
 	numberComponent.setValue(scorePanel,153)
 	scorePanel.x,scorePanel.y =230, 930
-	print(scorePanel)
-	--scorePanel:setValue(50)
 	
 	local urlTextTime = "res/img/time.png"
 	local timeTxt = display.newImageRect(urlTextTime,170,70)
 	timeTxt:setReferencePoint( display.TopLeftReferencePoint )
 	timeTxt.x, timeTxt.y = 400 , 930
 
-	timerPanel = timerComponent.create(5)
+	timerPanel = timerComponent.create(0,5,"dec",timeOver)
 	timerPanel.x, timerPanel.y = 590 , 930
 
-	simonSaysPanel = simonSaysComponent.create(460,460, actionButton)
+	simonSaysPanel = simonSaysComponent.create(460,460, actionButton,playEvent)
 	simonSaysPanel.x,simonSaysPanel.y =154 , 282
 
 	group:insert(background)

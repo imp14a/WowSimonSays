@@ -46,7 +46,12 @@ end
 
 local performAction = function(obj)
 	buttonBusy = false
-	playEvent()
+	if obj.name == "play" then
+		playEvent()
+	elseif obj.name == "red" then
+		print( "rojo" )
+	end
+	
 end
 
 function animateComponent(event)
@@ -55,7 +60,7 @@ function animateComponent(event)
 			buttonBusy = true
 			transition.from( event.target, { time=150, width=event.target.width*1.3, height=event.target.height*1.3, onComplete=performAction} ) 
 		else 
-
+			print("tocoBotonColor")
 		end
 	end
 end
@@ -65,8 +70,9 @@ function animateColor(event)
 		if event.target.name=="play" and not buttonBusy then
 			buttonBusy = true
 			transition.from( event.target, { time=150, width=event.target.width*1.3, height=event.target.height*1.3, onComplete=performAction} ) 
-		else 
-
+		elseif not buttonBusy then
+			buttonBusy = true
+			transition.from( event.target, { time=150, width=event.target.width*1.3, height=event.target.height*1.3, onComplete=performAction} ) 			
 		end
 	end
 end

@@ -21,7 +21,6 @@ local doActionButton = function(obj)
 	if obj.name=="back" then
 		storyboard.gotoScene( "WowSays", "slideRight", 500 )
 	end
-
 end
 
 function animateSimpleButton(event)
@@ -32,7 +31,7 @@ function animateSimpleButton(event)
 end
 
 function actionButton(obj)
-		print("tocoBotonColor")
+	print("tocoBotonColor")
 end
 
 function playEvent(obj)

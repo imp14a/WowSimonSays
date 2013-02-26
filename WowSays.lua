@@ -14,7 +14,7 @@ local doActionButton = function(obj)
 	busyButton = false
 	if obj.name=="config" then
 		storyboard.gotoScene( "MainConfiguration", "slideRight", 200 )
-	else
+	else		
 		storyboard.gotoScene( obj.action, "slideLeft", 200 )
 	end
 

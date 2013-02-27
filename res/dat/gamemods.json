@@ -18,9 +18,9 @@
             }
         },
         {
-            "name": "Clasic",
+            "name": "Classic",
             "enabled": true,
-            "action": "activities.ClasicActivity",
+            "action": "activities.ClassicActivity",
             "spriteSheetInfo": {
                 "isAnimatedSprite": false,
                 "location": "res/img/button/gray.png",

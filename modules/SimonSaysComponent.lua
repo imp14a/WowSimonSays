@@ -59,13 +59,8 @@ function animateComponent(event)
 	if event.phase=="began" then
 		if event.target.name=="play" and not buttonBusy then
 			buttonBusy = true
-<<<<<<< HEAD
-			transition.from( event.target, { time=150, width=event.target.width*1.3, height=event.target.height*1.3, onComplete=performAction} )
-=======
 			transition.from( event.target, { time=150, width=event.target.width*1.3, height=event.target.height*1.3, onComplete=performAction} ) 
-		else 
-			print("tocoBotonColor")
->>>>>>> e37b08d70759cd6fcc3a95d2a5217ca876d56e49
+		else
 		end
 	end
 	return true
@@ -74,11 +69,9 @@ end
 function animateColor(event)
 	local color = event.target
 	if event.phase=="began" then
-<<<<<<< HEAD
 		color:setFrame(1)
 	elseif event.phase == "ended" then
 		color:setFrame(2)
-=======
 		if event.target.name=="play" and not buttonBusy then
 			buttonBusy = true
 			transition.from( event.target, { time=150, width=event.target.width*1.3, height=event.target.height*1.3, onComplete=performAction} ) 
@@ -86,7 +79,6 @@ function animateColor(event)
 			buttonBusy = true
 			transition.from( event.target, { time=150, width=event.target.width*1.3, height=event.target.height*1.3, onComplete=performAction} ) 			
 		end
->>>>>>> e37b08d70759cd6fcc3a95d2a5217ca876d56e49
 	end
 	return true
 end

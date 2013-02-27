@@ -25,6 +25,7 @@ function animateSimpleButton(event)
 		busyButton = true
 		transition.from( event.target, { time=100, width=event.target.width*1.3,height=event.target.height*1.3, onComplete=doActionButton } )
 	end
+	return true
 end
 
 function scene:createScene( event )

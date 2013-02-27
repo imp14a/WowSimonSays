@@ -30,7 +30,7 @@ function animateSimpleButton(event)
 		event.target.previousH=event.target.height
 		transition.to( event.target, { time=100, width=event.target.width*1.3,height=event.target.height*1.3, onComplete=endAnimateSimpleButton } )
 	end
-
+	return true
 end
 
 -----------------------------------------------------------------------------------------

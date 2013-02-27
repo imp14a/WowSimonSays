@@ -38,6 +38,7 @@ function SimonSaysComponent.create(w,h,coloreEent,playEvent)
 	botonPlay.x, botonPlay.y =   centx, centy
 	botonPlay:addEventListener('touch',animateComponent)
 	botonPlay.name="play"
+	botonPlay.background="play"
 	botonPlay.x ,botonPlay.y = w/2 , h/2
 	SimonSaysComponent:insert(botonPlay)
 
@@ -53,22 +54,20 @@ function animateComponent(event)
 	if event.phase=="began" then
 		if event.target.name=="play" and not buttonBusy then
 			buttonBusy = true
-			transition.from( event.target, { time=150, width=event.target.width*1.3, height=event.target.height*1.3, onComplete=performAction} ) 
-		else 
-
+			transition.from( event.target, { time=150, width=event.target.width*1.3, height=event.target.height*1.3, onComplete=performAction} )
 		end
 	end
+	return true
 end
 
 function animateColor(event)
+	local color = event.target
 	if event.phase=="began" then
-		if event.target.name=="play" and not buttonBusy then
-			buttonBusy = true
-			transition.from( event.target, { time=150, width=event.target.width*1.3, height=event.target.height*1.3, onComplete=performAction} ) 
-		else 
-
-		end
+		color:setFrame(1)
+	elseif event.phase == "ended" then
+		color:setFrame(2)
 	end
+	return true
 end
 
 return SimonSaysComponent

@@ -12,9 +12,7 @@ function NumberComponent.create(_numDigits)
 
 	local options ={width = 33,height = 70,numFrames = 10 }
 	local numbersSheet = graphics.newImageSheet( urlNumbers, options )
-
 	local sequenceData = { name="conteo", time=1000, loopCount = 23, count=10, start=1 }
-
 	for i=1,numDigits do
 		number = display.newSprite( numbersSheet, sequenceData )
 		number:setReferencePoint( display.TopLeftReferencePoint )
